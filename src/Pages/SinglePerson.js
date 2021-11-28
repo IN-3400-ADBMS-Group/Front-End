@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CircularProgress from "@mui/material/CircularProgress";
+import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Alert,
   Avatar,
@@ -10,6 +11,7 @@ import {
   Container,
   CssBaseline,
   Grid,
+  IconButton,
   Stack,
   Typography,
 } from "@mui/material";
@@ -253,7 +255,11 @@ function SinglePerson() {
                               <TableRow hover role="checkbox" tabIndex={-1}>
                                 <TableCell key={column._id}>
                                   <Typography color="indigo">
-                                    {column.fname}
+                                    {column.fname}{" "}
+                                    <IconButton variant="outlined">
+                                      {" "}
+                                      <CancelIcon />
+                                    </IconButton>
                                   </Typography>
                                 </TableCell>
                               </TableRow>
@@ -308,6 +314,10 @@ function SinglePerson() {
                                 <TableCell key={column._id}>
                                   <Typography color="indigo">
                                     {column.fname}
+                                    <IconButton variant="outlined">
+                                      {" "}
+                                      <CancelIcon />
+                                    </IconButton>
                                   </Typography>
                                 </TableCell>
                               </TableRow>

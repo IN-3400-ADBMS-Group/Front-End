@@ -103,7 +103,7 @@ export default function PersonListPage() {
                 >
                   <CardMedia
                     component="img"
-                    image={`https://source.unsplash.com/featured/men`}
+                    image="https://source.unsplash.com/featured/?men"
                     alt="random"
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
