@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -13,13 +13,36 @@ import Container from "@mui/material/Container";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
+const users = [
+  {
+    fname: "Madhu",
+    password: "test",
+    lname: "Sivan",
+    _id: "vGLCsDfs",
+    email: "madhu@gmail.com",
+  },
+  {
+    fname: "Madhu",
+    password: "test568",
+    lname: "Sivan",
+    _id: "SBASgPRn",
+    email: "madhu@gmail.com",
+  },
+];
 const theme = createTheme();
 
 export default function PersonListPage() {
   const navigate = useNavigate();
+  const [Users, setUsers] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:3001/").then((res) => {
+      setUsers(res.data);
+      console.log(res.data);
+    });
+  }, []);
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -69,8 +92,8 @@ export default function PersonListPage() {
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+            {Users.map((user) => (
+              <Grid item key={user._id} xs={12} sm={6} md={4}>
                 <Card
                   sx={{
                     height: "100%",
@@ -85,15 +108,16 @@ export default function PersonListPage() {
                   />
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant="h5" component="h2">
-                      Person1
+                      {user.fname}
                     </Typography>
-                    <Typography>Person Details</Typography>
+                    <Typography>{user.lname}</Typography>
+                    <Typography>{user.email}</Typography>
                   </CardContent>
                   <CardActions>
                     <Button
                       size="small"
                       onClick={() => {
-                        navigate("/person/:id");
+                        navigate(`/person/${user._id}`);
                       }}
                     >
                       View

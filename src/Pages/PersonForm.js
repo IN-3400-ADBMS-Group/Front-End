@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { UseState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -10,19 +10,28 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import axios from "axios";
 
 const theme = createTheme();
 
 export default function PersonForm() {
-  const handleSubmit = (event) => {
+  // const [user, setuser] = UseState([]);
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
+    console.log(data.get("fname"));
+
+    const user = {
+      fname: data.get("firstName"),
+      lname: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+    await axios.post("http://localhost:3001/add", user);
+    navigate("/");
   };
+
   const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
